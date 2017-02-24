@@ -43,11 +43,11 @@ namespace Seeker
         /// </summary>
         public void Start()
         {
-            _seekerLogger.Info("Запуск сервера приёма сообщений.");
+            _seekerLogger.Info("Seeker service is starting.");
             _system = ActorSystem.Create("seeker-system");
             var resolver = new AutoFacDependencyResolver(AutofacContext.Container, _system);
             InitializeActors();
-            _seekerLogger.Info("Сервер приёма сообщений запущен.");
+            _seekerLogger.Info("Seeker service started.");
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Seeker
         private void InitializeActors()
         {
             var listener = _system.ActorOf(Props.Create(() => new SocketListener(
-                new IPEndPoint(IPAddress.Any, _settings.Port))), ActorNames.Listener);
+                new IPEndPoint(IPAddress.Any, _settings.TcpPort))), ActorNames.Listener);
             var processorManager = _system.ActorOf<ProcessorManager>(ActorNames.ProcessorManager);
             var indexer = _system.ActorOf(_system.DI().Props<Indexer>(), ActorNames.Indexer);
         }
@@ -66,9 +66,9 @@ namespace Seeker
         /// </summary>
         public async void Stop()
         {
-            _seekerLogger.Info("Остановка сервера приёма сообщений.");
+            _seekerLogger.Info("Stops seeker is stopping.");
             await _system.Terminate();
-            _seekerLogger.Info("Сервер приёма сообщений остановлен.");
+            _seekerLogger.Info("Seeker service stopped.");
         }
 
         #endregion

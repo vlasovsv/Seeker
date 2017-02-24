@@ -10,7 +10,12 @@
         /// <summary>
         /// Gets or sets a socket port.
         /// </summary>
-        int Port { get; set; }
+        int TcpPort { get; set; }
+
+        /// <summary>
+        /// Gets or sets a http api port.
+        /// </summary>
+        int HttpApiPort { get; set; }
 
         /// <summary>
         /// Gets or sets a path to the store.

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 
 namespace Seeker.Configuration
 {
@@ -42,15 +41,30 @@ namespace Seeker.Configuration
         /// <summary>
         /// Gets or sets a socket port.
         /// </summary>
-        public int Port
+        public int TcpPort
         {
             get
             {
-                return _seekerSection.Port;
+                return _seekerSection.TcpPort;
             }
             set
             {
-                _seekerSection.Port = value;
+                _seekerSection.TcpPort = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a http api port.
+        /// </summary>
+        public int HttpApiPort
+        {
+            get
+            {
+                return _seekerSection.HttpApiPort;
+            }
+            set
+            {
+                _seekerSection.HttpApiPort = value;
             }
         }
 

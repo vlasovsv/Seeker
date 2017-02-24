@@ -3,6 +3,7 @@ using Autofac;
 using NLog.LayoutRenderers;
 using Topshelf;
 using Topshelf.Logging;
+using Topshelf.Nancy;
 
 using Seeker.Configuration;
 using Seeker.Searching;
@@ -33,25 +34,33 @@ namespace Seeker
         /// </returns>
         private static Host ConfigureHost(IContainer container)
         {
+            var settings = container.Resolve<ISeekerSettings>();
+
             var host = HostFactory.New(x =>
             {
                 x.EnableShutdown();
                 x.RunAsLocalSystem();
                 x.SetServiceName("Seeker");
-                x.SetDisplayName("Сервис сборщика логов");
-                x.SetDescription("Отвечает за приём лог-сообщений с различных клиентов");
+                x.SetDisplayName("Seeker");
+                x.SetDescription("Collects log messages");
                 x.StartAutomatically();
-                
+
                 x.Service<SeekerService>(cfg =>
                 {
                     cfg.ConstructUsing(() => container.Resolve<SeekerService>());
                     cfg.WhenStarted<SeekerService>(srv => srv.Start());
                     cfg.WhenStopped<SeekerService>(srv => srv.Stop());
+
+                    cfg.WithNancyEndpoint(x, c =>
+                    {
+                        c.AddHost(port: settings.HttpApiPort);
+                        c.CreateUrlReservationsOnInstall();
+                    });
                 });
                 x.EnableServiceRecovery(cfg => cfg.RestartService(1));
                 x.UseNLog();
                 x.OnException(ex => HostLogger.Get("Seeker")
-                    .Error("Необработанное исключение.", ex));
+                    .Error("Unhandled exception.", ex));
             });
             return host;
         }
