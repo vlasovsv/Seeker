@@ -47,7 +47,7 @@ namespace Seeker.Actors
             }
             document.Add(new Field("raw", obj.ToString(), Field.Store.YES, Field.Index.NO));
 
-            Context.ActorSelection(string.Format("/user/{0}", ActorNames.Indexer)).Tell(document);
+            Context.ActorSelection(ActorPaths.Indexer.Path).Tell(document);
         }
 
         #endregion

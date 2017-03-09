@@ -22,7 +22,7 @@ namespace Seeker.Actors
         #region Constructors
 
         /// <summary>
-        /// Создаёт экземпляр актора.
+        /// Creates a message processor actor.
         /// </summary>
         public MessageProcessor(ISeekerSettings settings)
         {

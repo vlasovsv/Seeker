@@ -56,9 +56,9 @@ namespace Seeker
         private void InitializeActors()
         {
             var listener = _system.ActorOf(Props.Create(() => new SocketListener(
-                new IPEndPoint(IPAddress.Any, _settings.TcpPort))), ActorNames.Listener);
-            var processorManager = _system.ActorOf<ProcessorManager>(ActorNames.ProcessorManager);
-            var indexer = _system.ActorOf(_system.DI().Props<Indexer>(), ActorNames.Indexer);
+                new IPEndPoint(IPAddress.Any, _settings.TcpPort))), ActorPaths.Listener.Name);
+            var processorManager = _system.ActorOf<ProcessorManager>(ActorPaths.ProcessorManager.Name);
+            var indexer = _system.ActorOf(_system.DI().Props<Indexer>(), ActorPaths.Indexer.Name);
         }
 
         /// <summary>

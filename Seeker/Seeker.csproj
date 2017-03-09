@@ -97,7 +97,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actors\ActorNames.cs" />
+    <Compile Include="Actors\ActorMetaData.cs" />
+    <Compile Include="Actors\ActorPaths.cs" />
     <Compile Include="Actors\DocumentMapper.cs" />
     <Compile Include="Actors\Indexer.cs">
       <SubType>Code</SubType>

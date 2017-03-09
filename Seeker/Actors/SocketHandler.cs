@@ -35,7 +35,7 @@ namespace Seeker.Actors
                 var text = Encoding.UTF8.GetString(received.Data.ToArray()).Trim();
                 Sender.Tell(Tcp.Write.Create(received.Data));
 
-                Context.ActorSelection(string.Format("/user/{0}", ActorNames.ProcessorManager)).Tell(text);
+                Context.ActorSelection(ActorPaths.ProcessorManager.Path).Tell(text);
             });
             Receive<Tcp.ConnectionClosed>(closed =>
             {
