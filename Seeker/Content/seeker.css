@@ -1,3 +1,5 @@
-﻿body {
-    padding-top: 70px;
+﻿body { padding-top: 70px;}
+.page-block { 
+	padding-bottom: 20px;
 }
+.hidden { display: none; }

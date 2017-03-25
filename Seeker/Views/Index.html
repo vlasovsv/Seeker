@@ -9,11 +9,8 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
               integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
               crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-                crossorigin="anonymous"></script>
         <link rel="stylesheet" href="../Content/seeker.css" />
+        <link rel="stylesheet" href="../Content/loader.css" />
         <title>Seeker</title>
     </head>
     <body>
@@ -25,18 +22,60 @@
             </div>
         </nav>
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
+            <div class="row page-block">
+                <div class="col-lg-12 search-container">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Search for...">
                         <span class="input-group-btn">
-                            <button class="btn btn-success" type="button">
+                            <button class="btn btn-success js-search-button" type="button">
                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                             </button>
                         </span>
                     </div>
                 </div>
             </div>
+            
+            <div class="row page-block">
+                <div class="col-lg-12 results-container">
+                    <div class="hidden loader">
+                        <div class="point circular_1"></div>
+                        <div class="point circular_2"></div>
+                        <div class="point circular_3"></div>
+                        <div class="point circular_4"></div>
+                        <div class="point circular_5"></div>
+                        <div class="point circular_6"></div>
+                        <div class="point circular_7"></div>
+                        <div class="point circular_8"></div>
+                    </div>
+
+                    <table class="hidden js-table-row-template">
+                        <tr class="table-row">
+                            <td class="time"></td>
+                            <td class="message"></td>
+                            <td class="machine"></td>
+                        </tr>
+                    </table>
+                    <div class="hidden js-log-table-container">
+                        <table class="table table-condensed js-log-table">
+                            <thead>
+                                <tr>
+                                    <th>Время</th>
+                                    <th>Сообщение</th>
+                                    <th>Машина</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
+        
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+                crossorigin="anonymous"></script>
+        <script src="../Content/seeker.js"></script>
     </body>
 </html>
