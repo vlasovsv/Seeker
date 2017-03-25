@@ -6,9 +6,12 @@ using System.Linq;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
+using Lucene.Net.Search;
 using Lucene.Net.Store;
+using Newtonsoft.Json;
 
 using Seeker.Configuration;
+using Seeker.Model;
 
 namespace Seeker.Searching
 {
@@ -54,6 +57,17 @@ namespace Seeker.Searching
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// Checks if the index exists.
+        /// </summary>
+        public bool IsIndexExisted
+        {
+            get
+            {
+                return IndexReader.IndexExists(IndexDirectory);
+            }
         }
 
         #endregion
@@ -111,6 +125,45 @@ namespace Seeker.Searching
         {
             var documents = items.Select(x => mapper(x)).ToArray();
             AddDocuments(documents);
+        }
+
+        /// <summary>
+        /// Searches log items.
+        /// </summary>
+        /// <param name="query">Query string.</param>
+        /// <returns>
+        /// Returns a collection of log items.
+        /// </returns>
+        public IEnumerable<LogEventData> Search(string query)
+        {
+            if (IsIndexExisted)
+            {
+                using (var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30))
+                {
+                    using (var searcher = new IndexSearcher(IndexDirectory, true))
+                    {
+                        MatchAllDocsQuery searchQuery = new MatchAllDocsQuery();
+
+                        //var parser = new QueryParser(Lucene.Net.Util.Version.LUCENE_30, "ExceptionType", analyzer);
+                        //var searchQuery = parser.Parse(query);
+
+                        var hits = searcher.Search(searchQuery, 1000);
+                        List<LogEventData> results = new List<LogEventData>(hits.TotalHits);
+                        foreach (var scoreDoc in hits.ScoreDocs)
+                        {
+                            var doc = searcher.Doc(scoreDoc.Doc);
+                            var raw = doc.Get("Raw");
+                            var logEvent = JsonConvert.DeserializeObject<LogEventData>(raw);
+                            results.Add(logEvent);
+                        }
+                        return results;
+                    }
+                }
+            }
+            else
+            {
+                return Enumerable.Empty<LogEventData>();
+            }
         }
 
         #endregion

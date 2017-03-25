@@ -112,7 +112,11 @@
     <Compile Include="Configuration\AppConfigSettings.cs" />
     <Compile Include="Configuration\ISeekerSettings.cs" />
     <Compile Include="Configuration\LogFormatting.cs" />
+    <Compile Include="Model\LogEventData.cs" />
+    <Compile Include="Model\LogException.cs" />
+    <Compile Include="Model\LogLevel.cs" />
     <Compile Include="Modules\IndexModule.cs" />
+    <Compile Include="Modules\SearchModule.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Configuration\SeekerSection.cs" />

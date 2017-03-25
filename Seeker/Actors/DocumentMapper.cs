@@ -1,8 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 using Akka.Actor;
 using Lucene.Net.Documents;
 using Newtonsoft.Json.Linq;
+using Seeker.Model;
+using Newtonsoft.Json;
 
 namespace Seeker.Actors
 {
@@ -18,9 +22,9 @@ namespace Seeker.Actors
         /// </summary>
         public DocumentMapper()
         {
-            Receive<JObject>(obj =>
+            Receive<LogEventData>(logEvent =>
             {
-                ProcessObject(obj);
+                ProcessObject(logEvent);
             });
         }
 
@@ -31,23 +35,41 @@ namespace Seeker.Actors
         /// <summary>
         /// Processes a json-object.
         /// </summary>
-        /// <param name="obj">A json-object instance.</param>
-        private void ProcessObject(JObject obj)
+        /// <param name="logEvent">Log event data.</param>
+        private void ProcessObject(LogEventData logEvent)
         {
-            var document = new Document();
-            var properties = obj.Descendants().OfType<JProperty>();
+            var doc = new Document();
 
-            foreach (var property in properties)
+            doc.Add(new Field("Timestamp", DateTools.DateToString(logEvent.Timestamp, DateTools.Resolution.SECOND), Field.Store.NO, Field.Index.ANALYZED));
+            doc.Add(new Field("Level", logEvent.Level.ToString(), Field.Store.NO, Field.Index.NOT_ANALYZED));
+            doc.Add(new Field("Message", logEvent.Message, Field.Store.NO, Field.Index.ANALYZED));
+
+            ProcessException(logEvent.Exception, doc);
+            ProcessProperties(logEvent.Properties, doc);
+
+            doc.Add(new Field("Raw", JsonConvert.SerializeObject(logEvent), Field.Store.YES, Field.Index.NO));
+
+            Context.ActorSelection(ActorPaths.Indexer.Path).Tell(doc);
+        }
+
+        private void ProcessException(LogException exception, Document doc)
+        {
+            if (exception != null)
             {
-                if (!property.Children<JObject>().Any())
+                doc.Add(new Field("ExceptionType", exception.Type, Field.Store.YES, Field.Index.ANALYZED));
+                doc.Add(new Field("ExceptionMessage", exception.Message, Field.Store.YES, Field.Index.ANALYZED));
+            }
+        }
+
+        private void ProcessProperties(IReadOnlyDictionary<string, object> properties, Document doc)
+        {
+            if (properties != null)
+            {
+                foreach (var kvp in properties)
                 {
-                    var value = property.Value;
-                    document.Add(new Field(property.Name, value.Value<string>(), Field.Store.YES, Field.Index.ANALYZED));
+                    doc.Add(new Field(kvp.Key, kvp.Value.ToString(), Field.Store.NO, Field.Index.ANALYZED));
                 }
             }
-            document.Add(new Field("raw", obj.ToString(), Field.Store.YES, Field.Index.NO));
-
-            Context.ActorSelection(ActorPaths.Indexer.Path).Tell(document);
         }
 
         #endregion

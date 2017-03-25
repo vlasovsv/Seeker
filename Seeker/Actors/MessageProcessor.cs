@@ -1,9 +1,10 @@
 ﻿using Akka.Actor;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Topshelf.Logging;
 
 using Seeker.Configuration;
+using Seeker.Model;
+using Newtonsoft.Json.Linq;
 
 namespace Seeker.Actors
 {
@@ -30,9 +31,12 @@ namespace Seeker.Actors
 
             Receive<string>(msg =>
             {
+                var logEventData = JsonConvert.DeserializeObject<LogEventData>(msg);
                 var obj = JObject.Parse(msg);
-                _keeperLogger.Info(obj.ToString((Formatting)_settings.Formatting));
-                Context.ActorOf<DocumentMapper>().Tell(obj);
+                var log = obj.ToString((Formatting)_settings.Formatting);
+                _keeperLogger.Info(log);
+
+                Context.ActorOf<DocumentMapper>().Tell(logEventData);
             });
         }
 
