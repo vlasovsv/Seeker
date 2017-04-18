@@ -8,14 +8,9 @@
         #region Properties
 
         /// <summary>
-        /// Gets or sets a socket port.
-        /// </summary>
-        int TcpPort { get; set; }
-
-        /// <summary>
         /// Gets or sets a http api port.
         /// </summary>
-        int HttpApiPort { get; set; }
+        int Port { get; set; }
 
         /// <summary>
         /// Gets or sets a path to the store.

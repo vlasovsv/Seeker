@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
 namespace Seeker.Model
 {
     /// <summary>
@@ -13,6 +16,7 @@ namespace Seeker.Model
         /// <summary>
         /// Gets a log timestamp.
         /// </summary>
+        [JsonProperty(PropertyName ="timestamp")]
         public DateTime Timestamp
         {
             get;
@@ -22,6 +26,8 @@ namespace Seeker.Model
         /// <summary>
         /// Gets a log level.
         /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty(PropertyName = "level")]
         public LogLevel Level
         {
             get;
@@ -31,6 +37,7 @@ namespace Seeker.Model
         /// <summary>
         /// Gets a log message.
         /// </summary>
+        [JsonProperty(PropertyName = "message")]
         public string Message
         {
             get;
@@ -40,6 +47,7 @@ namespace Seeker.Model
         /// <summary>
         /// Gets an exception info.
         /// </summary>
+        [JsonProperty(PropertyName = "exception")]
         public LogException Exception
         {
             get;
@@ -49,6 +57,7 @@ namespace Seeker.Model
         /// <summary>
         /// Gets custom properties.
         /// </summary>
+        [JsonProperty(PropertyName = "properties")]
         public IReadOnlyDictionary<string, object> Properties
         {
             get;

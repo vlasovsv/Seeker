@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
 using Akka.Actor;
 using Lucene.Net.Documents;
-using Newtonsoft.Json.Linq;
-using Seeker.Model;
 using Newtonsoft.Json;
+
+using Seeker.Model;
 
 namespace Seeker.Actors
 {
@@ -41,7 +39,7 @@ namespace Seeker.Actors
             var doc = new Document();
 
             doc.Add(new Field("Timestamp", DateTools.DateToString(logEvent.Timestamp, DateTools.Resolution.SECOND), Field.Store.NO, Field.Index.ANALYZED));
-            doc.Add(new Field("Level", logEvent.Level.ToString(), Field.Store.NO, Field.Index.NOT_ANALYZED));
+            doc.Add(new Field("Level", logEvent.Level.ToString(), Field.Store.NO, Field.Index.ANALYZED));
             doc.Add(new Field("Message", logEvent.Message, Field.Store.NO, Field.Index.ANALYZED));
 
             ProcessException(logEvent.Exception, doc);

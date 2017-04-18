@@ -63,6 +63,9 @@
     <Reference Include="Nancy.Hosting.Self, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Nancy.Hosting.Self.2.0.0-clinteastwood\lib\net452\Nancy.Hosting.Self.dll</HintPath>
     </Reference>
+    <Reference Include="Nancy.Serialization.JsonNet, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.Serialization.JsonNet.2.0.0-clinteastwood\lib\net452\Nancy.Serialization.JsonNet.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -103,11 +106,8 @@
     <Compile Include="Actors\Indexer.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Actors\MessageAnalyzer.cs" />
+    <Compile Include="Actors\MessageIngestor.cs" />
     <Compile Include="Actors\MessageProcessor.cs" />
-    <Compile Include="Actors\ProcessorManager.cs" />
-    <Compile Include="Actors\SocketHandler.cs" />
-    <Compile Include="Actors\SocketListener.cs" />
     <Compile Include="AutofacContext.cs" />
     <Compile Include="Configuration\AppConfigSettings.cs" />
     <Compile Include="Configuration\ISeekerSettings.cs" />
@@ -116,11 +116,14 @@
     <Compile Include="Model\LogException.cs" />
     <Compile Include="Model\LogLevel.cs" />
     <Compile Include="Modules\IndexModule.cs" />
+    <Compile Include="Modules\LogsModule.cs" />
     <Compile Include="Modules\SearchModule.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Configuration\SeekerSection.cs" />
     <Compile Include="Searching\LuceneWrapper.cs" />
+    <Compile Include="Searching\SearchRequest.cs" />
+    <Compile Include="SeekerContext.cs" />
     <Compile Include="SeekerService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +137,9 @@
     </None>
     <None Include="packages.config" />
     <Content Include="Content\loader.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\moment.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\seeker.css">

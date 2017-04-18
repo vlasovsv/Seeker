@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 
 using Seeker.Configuration;
 using Seeker.Model;
+using Lucene.Net.QueryParsers;
 
 namespace Seeker.Searching
 {
@@ -130,11 +131,11 @@ namespace Seeker.Searching
         /// <summary>
         /// Searches log items.
         /// </summary>
-        /// <param name="query">Query string.</param>
+        /// <param name="request">Search request.</param>
         /// <returns>
         /// Returns a collection of log items.
         /// </returns>
-        public IEnumerable<LogEventData> Search(string query)
+        public IEnumerable<LogEventData> Search(SearchRequest request)
         {
             if (IsIndexExisted)
             {
@@ -142,12 +143,23 @@ namespace Seeker.Searching
                 {
                     using (var searcher = new IndexSearcher(IndexDirectory, true))
                     {
-                        MatchAllDocsQuery searchQuery = new MatchAllDocsQuery();
+                        var dateQuery = new TermRangeQuery("Timestamp",
+                            DateTools.DateToString(request.StartDate, DateTools.Resolution.MILLISECOND),
+                            DateTools.DateToString(request.EndDate, DateTools.Resolution.MILLISECOND),
+                            true,
+                            true);
 
-                        //var parser = new QueryParser(Lucene.Net.Util.Version.LUCENE_30, "ExceptionType", analyzer);
-                        //var searchQuery = parser.Parse(query);
+                        var filter = new BooleanQuery();
+                        filter.Add(dateQuery, Occur.MUST);
 
-                        var hits = searcher.Search(searchQuery, 1000);
+                        if (!request.IsQueryEmpty)
+                        {
+                            var parser = new QueryParser(Lucene.Net.Util.Version.LUCENE_30, "Message", analyzer);
+                            var query = parser.Parse(request.Query);
+                            filter.Add(query, Occur.MUST);
+                        }
+
+                        var hits = searcher.Search(filter, 10000);
                         List<LogEventData> results = new List<LogEventData>(hits.TotalHits);
                         foreach (var scoreDoc in hits.ScoreDocs)
                         {

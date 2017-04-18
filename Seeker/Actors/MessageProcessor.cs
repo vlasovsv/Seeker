@@ -2,9 +2,7 @@
 using Newtonsoft.Json;
 using Topshelf.Logging;
 
-using Seeker.Configuration;
 using Seeker.Model;
-using Newtonsoft.Json.Linq;
 
 namespace Seeker.Actors
 {
@@ -13,10 +11,87 @@ namespace Seeker.Actors
     /// </summary>
     public class MessageProcessor : ReceiveActor
     {
+        #region Actor messages
+
+        public class SingleLog
+        {
+            #region Private fields
+
+            private readonly string _rawLog;
+
+            #endregion
+
+            #region Constructors
+
+            /// <summary>
+            /// Creates a single log message.
+            /// </summary>
+            /// <param name="rawLog"></param>
+            public SingleLog(string rawLog)
+            {
+                _rawLog = rawLog;
+            }
+
+            #endregion
+
+            #region Properties
+
+            /// <summary>
+            /// Gets a raw log.
+            /// </summary>
+            public string RawLog
+            {
+                get
+                {
+                    return _rawLog;
+                }
+            }
+
+            #endregion
+        }
+
+        public class BatchLog
+        {
+            #region Private fields
+
+            private readonly string _rawLog;
+
+            #endregion
+
+            #region Constructors
+
+            /// <summary>
+            /// Creates a batch log message.
+            /// </summary>
+            /// <param name="rawLog"></param>
+            public BatchLog(string rawLog)
+            {
+                _rawLog = rawLog;
+            }
+
+            #endregion
+
+            #region Properties
+
+            /// <summary>
+            /// Gets a raw log.
+            /// </summary>
+            public string RawLog
+            {
+                get
+                {
+                    return _rawLog;
+                }
+            }
+
+            #endregion
+        }
+
+        #endregion
+
         #region Private fields
 
         private readonly LogWriter _keeperLogger = HostLogger.Get("Keeper");
-        private readonly ISeekerSettings _settings;
 
         #endregion
 
@@ -25,18 +100,21 @@ namespace Seeker.Actors
         /// <summary>
         /// Creates a message processor actor.
         /// </summary>
-        public MessageProcessor(ISeekerSettings settings)
+        public MessageProcessor()
         {
-            _settings = settings;
-
-            Receive<string>(msg =>
+            Receive<SingleLog>(msg =>
             {
-                var logEventData = JsonConvert.DeserializeObject<LogEventData>(msg);
-                var obj = JObject.Parse(msg);
-                var log = obj.ToString((Formatting)_settings.Formatting);
-                _keeperLogger.Info(log);
-
+                var logEventData = JsonConvert.DeserializeObject<LogEventData>(msg.RawLog);
                 Context.ActorOf<DocumentMapper>().Tell(logEventData);
+            });
+
+            Receive<BatchLog>(msg =>
+            {
+                var logEvents = JsonConvert.DeserializeObject<LogEventData[]>(msg.RawLog);
+                foreach (var logEventData in logEvents)
+                {
+                    Context.ActorOf<DocumentMapper>().Tell(logEventData);
+                }
             });
         }
 

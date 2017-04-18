@@ -53,7 +53,7 @@ namespace Seeker
 
                     cfg.WithNancyEndpoint(x, c =>
                     {
-                        c.AddHost(port: settings.HttpApiPort);
+                        c.AddHost(port: settings.Port);
                         c.CreateUrlReservationsOnInstall();
                     });
                 });

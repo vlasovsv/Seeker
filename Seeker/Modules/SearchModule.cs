@@ -1,10 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 using Autofac;
 using Nancy;
 
-using Seeker.Model;
 using Seeker.Searching;
 
 namespace Seeker.Modules
@@ -26,13 +24,16 @@ namespace Seeker.Modules
         /// Creates a search module.
         /// </summary>
         public SearchModule()
+            : base("api/v1/")
         {
             _lucene = AutofacContext.Container.Resolve<LuceneWrapper>();
 
             Get("/search", parameters =>
             {
-                var results = _lucene.Search((string)this.Request.Query["q"]);
-                return Response.AsJson(results);
+                var request = new SearchRequest();
+                request.Query = this.Request.Query["q"];
+                var results = _lucene.Search(request);
+                return Response.AsJson(results.OrderByDescending(x => x.Timestamp));
             });
         }
 

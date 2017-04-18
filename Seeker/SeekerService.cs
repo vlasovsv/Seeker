@@ -7,6 +7,7 @@ using Topshelf.Logging;
 
 using Seeker.Actors;
 using Seeker.Configuration;
+using System.Threading.Tasks;
 
 namespace Seeker
 {
@@ -45,6 +46,7 @@ namespace Seeker
         {
             _seekerLogger.Info("Seeker service is starting.");
             _system = ActorSystem.Create("seeker-system");
+            SeekerContext.ActorSystem = _system;
             var resolver = new AutoFacDependencyResolver(AutofacContext.Container, _system);
             InitializeActors();
             _seekerLogger.Info("Seeker service started.");
@@ -55,9 +57,7 @@ namespace Seeker
         /// </summary>
         private void InitializeActors()
         {
-            var listener = _system.ActorOf(Props.Create(() => new SocketListener(
-                new IPEndPoint(IPAddress.Any, _settings.TcpPort))), ActorPaths.Listener.Name);
-            var processorManager = _system.ActorOf<ProcessorManager>(ActorPaths.ProcessorManager.Name);
+            var processorManager = _system.ActorOf<MessageIngestor>(ActorPaths.MessageIngestor.Name);
             var indexer = _system.ActorOf(_system.DI().Props<Indexer>(), ActorPaths.Indexer.Name);
         }
 
@@ -66,6 +66,7 @@ namespace Seeker
         /// </summary>
         public async void Stop()
         {
+            SeekerContext.ActorSystem = null;
             _seekerLogger.Info("Stops seeker is stopping.");
             await _system.Terminate();
             _seekerLogger.Info("Seeker service stopped.");

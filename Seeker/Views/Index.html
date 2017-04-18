@@ -6,9 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-              integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-              crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="../Content/seeker.css" />
         <link rel="stylesheet" href="../Content/loader.css" />
         <title>Seeker</title>
@@ -47,25 +45,9 @@
                         <div class="point circular_7"></div>
                         <div class="point circular_8"></div>
                     </div>
-
-                    <table class="hidden js-table-row-template">
-                        <tr class="table-row">
-                            <td class="time"></td>
-                            <td class="message"></td>
-                            <td class="machine"></td>
-                        </tr>
-                    </table>
                     <div class="hidden js-log-table-container">
-                        <table class="table table-condensed js-log-table">
-                            <thead>
-                                <tr>
-                                    <th>Время</th>
-                                    <th>Сообщение</th>
-                                    <th>Машина</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
+                        <table class="table">
+                            <tbody></tbody>
                         </table>
                     </div>
                 </div>
@@ -73,9 +55,23 @@
         </div>
         
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-                crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="../Content/moment.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/0.9.84/jsrender.min.js"></script>
         <script src="../Content/seeker.js"></script>
+        <script id="log-row-template" type="text/x-jsrender">
+            <tr class="table-row">
+                <td class="col-xs-3">{{>~dateFormat(timestamp, "DD MMM YYYY HH:mm:ss.SSS")}}</td>
+                <td class="col-md-1"><span class="label label-primary">{{:level}}</span></td>
+                <td>
+                    {{:message}}
+                    <div class="hidden">
+                        {{:exception.message}}
+                    </div>
+                    
+                </td>
+            </tr>
+        </script>
+        
     </body>
 </html>

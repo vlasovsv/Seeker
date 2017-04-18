@@ -39,32 +39,17 @@ namespace Seeker.Configuration
         #region Properties
 
         /// <summary>
-        /// Gets or sets a socket port.
-        /// </summary>
-        public int TcpPort
-        {
-            get
-            {
-                return _seekerSection.TcpPort;
-            }
-            set
-            {
-                _seekerSection.TcpPort = value;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets a http api port.
         /// </summary>
-        public int HttpApiPort
+        public int Port
         {
             get
             {
-                return _seekerSection.HttpApiPort;
+                return _seekerSection.Port;
             }
             set
             {
-                _seekerSection.HttpApiPort = value;
+                _seekerSection.Port = value;
             }
         }
 

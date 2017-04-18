@@ -1,4 +1,6 @@
-﻿namespace Seeker.Model
+﻿using Newtonsoft.Json;
+
+namespace Seeker.Model
 {
     /// <summary>
     /// Represents an information about exception.
@@ -10,6 +12,7 @@
         /// <summary>
         /// Gets an exception type.
         /// </summary>
+        [JsonProperty(PropertyName = "type")]
         public string Type
         {
             get;
@@ -19,6 +22,7 @@
         /// <summary>
         /// Gets a message that describes the current exception.
         /// </summary>
+        [JsonProperty(PropertyName = "message")]
         public string Message
         {
             get;

@@ -5,10 +5,8 @@
     /// </summary>
     public static class ActorPaths
     {
-        public static readonly ActorMetaData Listener = new ActorMetaData("socket-listener");
+        public static readonly ActorMetaData MessageIngestor = new ActorMetaData("message-ingestor");
 
-        public static readonly ActorMetaData ProcessorManager = new ActorMetaData("processor-manager");
-
-        public static readonly ActorMetaData Indexer = new ActorMetaData("indexer");
+        public static readonly ActorMetaData Indexer = new ActorMetaData("log-indexer");
     }
 }

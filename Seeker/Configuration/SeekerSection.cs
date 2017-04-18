@@ -10,10 +10,10 @@ namespace Seeker.Configuration
         #region Properties
 
         /// <summary>
-        /// Gets or sets a socket port.
+        /// Gets or sets a http api port.
         /// </summary>
-        [ConfigurationProperty("port", DefaultValue = 11000, IsRequired = true)]
-        public int TcpPort
+        [ConfigurationProperty("port", DefaultValue = 8080)]
+        public int Port
         {
             get
             {
@@ -22,22 +22,6 @@ namespace Seeker.Configuration
             set
             {
                 this["port"] = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a http api port.
-        /// </summary>
-        [ConfigurationProperty("httpApiPort", DefaultValue = 8080)]
-        public int HttpApiPort
-        {
-            get
-            {
-                return (int)this["httpApiPort"];
-            }
-            set
-            {
-                this["httpApiPort"] = value;
             }
         }
 
