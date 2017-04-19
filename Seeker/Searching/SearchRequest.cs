@@ -10,14 +10,28 @@ namespace Seeker.Searching
         #region Constructors
 
         /// <summary>
-        /// Creates a new request.
+        /// Creates a new search request.
         /// </summary>
-        public SearchRequest()
+        /// <param name="query">A search query.</param>
+        /// <param name="startDate">A start date of serching.</param>
+        /// <param name="endDate">An end date of searching.</param>
+        public SearchRequest(string query, DateTime startDate, DateTime endDate)
         {
-            var upper = DateTime.Now;
-            var lower = upper.AddDays(-7);
+            var upper = endDate;
+            var lower = startDate;
             StartDate = lower;
             EndDate = upper;
+            Query = query;
+        }
+
+        /// <summary>
+        /// Creates a new search request.
+        /// </summary>
+        /// <param name="query">A search query.</param>
+        public SearchRequest(string query)
+            : this(query, DateTime.Now.AddDays(-7), DateTime.Now)
+        {
+
         }
 
         #endregion
@@ -30,7 +44,7 @@ namespace Seeker.Searching
         public DateTime StartDate
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -39,7 +53,7 @@ namespace Seeker.Searching
         public DateTime EndDate
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -48,7 +62,7 @@ namespace Seeker.Searching
         public string Query
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>

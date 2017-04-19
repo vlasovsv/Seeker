@@ -30,8 +30,7 @@ namespace Seeker.Modules
 
             Get("/search", parameters =>
             {
-                var request = new SearchRequest();
-                request.Query = this.Request.Query["q"];
+                var request = new SearchRequest(this.Request.Query["q"]);
                 var results = _lucene.Search(request);
                 return Response.AsJson(results.OrderByDescending(x => x.Timestamp));
             });
