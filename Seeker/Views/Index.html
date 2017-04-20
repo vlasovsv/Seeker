@@ -6,7 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../Content/dist/twitter-bootstrap/3.3.7/bootstrap.min.css">
+        <link rel="stylesheet" href="../Content/dist/twitter-bootstrap/bootstrap-datetimepicker.min.css">
         <link rel="stylesheet" href="../Content/seeker.css" />
         <link rel="stylesheet" href="../Content/loader.css" />
         <title>Seeker</title>
@@ -23,7 +24,7 @@
             <div class="row page-block">
                 <div class="col-lg-12 search-container">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for...">
+                        <input type="search" class="form-control" placeholder="Search for...">
                         <span class="input-group-btn">
                             <button class="btn btn-success js-search-button" type="button">
                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -32,7 +33,29 @@
                     </div>
                 </div>
             </div>
-            
+            <div class="row">
+                <div class='col-md-offset-6 col-md-3'>
+                    <div class="form-group">
+                        <div class='input-group date' id='startdatepicker'>
+                            <input type='datetime' class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-md-3'>
+                    <div class="form-group">
+                        <div class='input-group date' id='enddatepicker'>
+                            <input type='datetime' class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row page-block">
                 <div class="col-lg-12 results-container">
                     <div class="hidden loader">
@@ -54,10 +77,11 @@
             </div>
         </div>
         
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="../Content/moment.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/0.9.84/jsrender.min.js"></script>
+        <script src="../Content/dist/jquery-3.2.1.min.js"></script>
+        <script src="../Content/dist/twitter-bootstrap/3.3.7/bootstrap.min.js"></script>
+        <script src="../Content/dist/moment.js"></script>
+        <script src="../Content/dist/twitter-bootstrap/bootstrap-datetimepicker.min.js"></script>
+        <script src="../Content/dist/jsrender.min.js"></script>
         <script src="../Content/seeker.js"></script>
         <script id="log-row-template" type="text/x-jsrender">
             <tr class="table-row">
