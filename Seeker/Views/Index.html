@@ -85,10 +85,26 @@
         <script src="../Content/seeker.js"></script>
         <script id="log-row-template" type="text/x-jsrender">
             <tr class="table-row">
-                <td class="col-xs-3">{{>~dateFormat(timestamp, "DD MMM YYYY HH:mm:ss.SSS")}}</td>
-                <td class="col-md-1"><span class="label label-primary">{{:level}}</span></td>
+                <td class="col-xs-3">{{:~dateFormat(timestamp, "DD MMM YYYY HH:mm:ss.SSS")}}</td>
+                <td class="col-md-1">
+                    <span class="{{:~levelLabel(level)}}">{{:level}}</span>
+                </td>
                 <td>
-                    {{:message}}
+                    <p class="expander">{{:message}}</p>
+                    <div class="hidden">
+                        <div>
+                            {{if properties}}
+                            {{props properties}}
+                            <b>{{>key}}:</b> {{>prop}}<br />
+                            {{/props}}
+                            {{/if}}
+                        </div>
+                        {{if exception}}
+                        <div class="exception-label">
+                            {{:exception.message}}
+                        </div>
+                        {{/if}}
+                    </div>
                 </td>
             </tr>
         </script>

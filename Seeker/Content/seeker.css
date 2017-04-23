@@ -8,3 +8,11 @@
 .level {
     vertical-align:central;
 }
+.expander {
+    cursor: pointer;
+}
+.exception-label {
+    background-color: #d9534f;
+    color: #fff;
+    padding: 5px;
+}
