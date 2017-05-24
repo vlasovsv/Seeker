@@ -21,6 +21,12 @@ namespace Seeker.Searching
     /// </summary>
     public class LuceneWrapper
     {
+        #region Private fields
+
+        private readonly Sort _defaultSort;
+
+        #endregion
+
         #region Constructors
 
         /// <summary>
@@ -29,6 +35,7 @@ namespace Seeker.Searching
         /// <param name="settings">Seeker settings.</param>
         public LuceneWrapper(ISeekerSettings settings)
         {
+            _defaultSort = new Sort(new SortField("Timestamp", SortField.STRING, true));
             DataFolder = Path.Combine(settings.Store, "Index");
             if (!System.IO.Directory.Exists(DataFolder))
             {
@@ -133,9 +140,9 @@ namespace Seeker.Searching
         /// </summary>
         /// <param name="request">Search request.</param>
         /// <returns>
-        /// Returns a collection of log items.
+        /// Returns a search result.
         /// </returns>
-        public IEnumerable<LogEventData> Search(SearchRequest request)
+        public SearchResult Search(SearchRequest request)
         {
             if (IsIndexExisted)
             {
@@ -143,38 +150,61 @@ namespace Seeker.Searching
                 {
                     using (var searcher = new IndexSearcher(IndexDirectory, true))
                     {
-                        var dateQuery = new TermRangeQuery("Timestamp",
-                            DateTools.DateToString(request.StartDate, DateTools.Resolution.MILLISECOND),
-                            DateTools.DateToString(request.EndDate, DateTools.Resolution.MILLISECOND),
-                            true,
-                            true);
-
-                        var filter = new BooleanQuery();
-                        filter.Add(dateQuery, Occur.MUST);
+                        var query = new BooleanQuery();
 
                         if (!request.IsQueryEmpty)
                         {
                             var parser = new QueryParser(Lucene.Net.Util.Version.LUCENE_30, "Message", analyzer);
-                            var query = parser.Parse(request.Query);
-                            filter.Add(query, Occur.MUST);
+                            var contentQuery = parser.Parse(request.Query);
+                            query.Add(contentQuery, Occur.MUST);
                         }
 
-                        var hits = searcher.Search(filter, 10000);
+                        var filter = new QueryWrapperFilter(query);
+
+                        var order = GetOrderByOrDefault(request.OrderBy);
+                        var hits = searcher.Search(query, filter, 100000, order);
+                        var limitDocs = hits.ScoreDocs.Skip(request.Offset).Take(request.Limit);
                         List<LogEventData> results = new List<LogEventData>(hits.TotalHits);
-                        foreach (var scoreDoc in hits.ScoreDocs)
+                        foreach (var scoreDoc in limitDocs)
                         {
                             var doc = searcher.Doc(scoreDoc.Doc);
                             var raw = doc.Get("Raw");
                             var logEvent = JsonConvert.DeserializeObject<LogEventData>(raw);
                             results.Add(logEvent);
                         }
-                        return results;
+                        return new SearchResult(results, hits.TotalHits);
                     }
                 }
             }
             else
             {
-                return Enumerable.Empty<LogEventData>();
+                return SearchResult.Empty;
+            }
+        }
+
+        private Sort GetOrderByOrDefault(string orderBy)
+        {
+            if (string.IsNullOrEmpty(orderBy))
+            {
+                return _defaultSort;
+            }
+            else
+            {
+                var parts = orderBy.Split('|');
+                List<SortField> fields = new List<SortField>();
+                foreach (var part in parts)
+                {
+                    var fieldName = part;
+                    bool desc = false;
+                    if (part.StartsWith("-"))
+                    {
+                        desc = true;
+                        fieldName = part.TrimStart('-');
+                    }
+
+                    fields.Add(new SortField(fieldName, SortField.STRING, desc));
+                }
+                return new Sort(fields.ToArray());
             }
         }
 

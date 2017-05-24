@@ -17,11 +17,6 @@
         /// </summary>
         string Store { get; set; }
 
-        /// <summary>
-        /// Gets or sets a raw log format.
-        /// </summary>
-        LogFormatting Formatting { get; set; }
-
         #endregion
     }
 }

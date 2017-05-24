@@ -1,112 +1,20 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <link rel="stylesheet" href="../Content/dist/twitter-bootstrap/3.3.7/bootstrap.min.css">
-        <link rel="stylesheet" href="../Content/dist/twitter-bootstrap/bootstrap-datetimepicker.min.css">
-        <link rel="stylesheet" href="../Content/seeker.css" />
-        <link rel="stylesheet" href="../Content/loader.css" />
-        <title>Seeker</title>
-    </head>
-    <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Seeker</a>
-                </div>
-            </div>
-        </nav>
-        <div class="container">
-            <div class="row page-block">
-                <div class="col-lg-12 search-container">
-                    <div class="input-group">
-                        <input type="search" class="form-control" placeholder="Search for...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-success js-search-button" type="button">
-                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                            </button>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class='col-md-offset-6 col-md-3'>
-                    <div class="form-group">
-                        <div class='input-group date' id='startdatepicker'>
-                            <input type='datetime' class="form-control" />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class='col-md-3'>
-                    <div class="form-group">
-                        <div class='input-group date' id='enddatepicker'>
-                            <input type='datetime' class="form-control" />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+﻿@Master['MasterPage']
 
-            <div class="row page-block">
-                <div class="col-lg-12 results-container">
-                    <div class="hidden loader">
-                        <div class="point circular_1"></div>
-                        <div class="point circular_2"></div>
-                        <div class="point circular_3"></div>
-                        <div class="point circular_4"></div>
-                        <div class="point circular_5"></div>
-                        <div class="point circular_6"></div>
-                        <div class="point circular_7"></div>
-                        <div class="point circular_8"></div>
-                    </div>
-                    <div class="hidden js-log-table-container">
-                        <table class="table">
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+@Section['Content']
+<div class="row">
+    <div class="col-md-12">
+        @If.HasResults
+        <div class="table-responsive ">
+            <table id="log-table" class="table table-hover wrap">
+                @Partial['LogEventData', @Current.Results]
+            </table>
         </div>
-        
-        <script src="../Content/dist/jquery-3.2.1.min.js"></script>
-        <script src="../Content/dist/twitter-bootstrap/3.3.7/bootstrap.min.js"></script>
-        <script src="../Content/dist/moment.js"></script>
-        <script src="../Content/dist/twitter-bootstrap/bootstrap-datetimepicker.min.js"></script>
-        <script src="../Content/dist/jsrender.min.js"></script>
-        <script src="../Content/seeker.js"></script>
-        <script id="log-row-template" type="text/x-jsrender">
-            <tr class="table-row">
-                <td class="col-xs-3">{{:~dateFormat(timestamp, "DD MMM YYYY HH:mm:ss.SSS")}}</td>
-                <td class="col-md-1">
-                    <span class="{{:~levelLabel(level)}}">{{:level}}</span>
-                </td>
-                <td>
-                    <p class="expander">{{:message}}</p>
-                    <div class="hidden">
-                        <div>
-                            {{if properties}}
-                            {{props properties}}
-                            <b>{{>key}}:</b> {{>prop}}<br />
-                            {{/props}}
-                            {{/if}}
-                        </div>
-                        {{if exception}}
-                        <div class="exception-label">
-                            {{:exception.message}}
-                        </div>
-                        {{/if}}
-                    </div>
-                </td>
-            </tr>
-        </script>
-    </body>
-</html>
+        @EndIf
+        @IfNot.HasResults
+        <div style="text-align:center">
+            <span>It looks like we do not have any logs, but we will try to find something valuable another time.</span>
+        </div>
+        @EndIf
+    </div>
+</div>
+@EndSection

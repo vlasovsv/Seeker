@@ -11,8 +11,15 @@
 .expander {
     cursor: pointer;
 }
-.exception-label {
+
+.wrap {
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+.exception-block {
     background-color: #d9534f;
     color: #fff;
     padding: 5px;
+    margin-top: 5px;
 }

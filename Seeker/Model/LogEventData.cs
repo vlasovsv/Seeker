@@ -9,12 +9,13 @@ namespace Seeker.Model
     /// <summary>
     /// Represents a log event.
     /// </summary>
+    [Serializable]
     public class LogEventData
     {
         #region Properties
 
         /// <summary>
-        /// Gets a log timestamp.
+        /// Gets or sets a log timestamp.
         /// </summary>
         [JsonProperty(PropertyName ="timestamp")]
         public DateTime Timestamp
@@ -24,7 +25,7 @@ namespace Seeker.Model
         }
 
         /// <summary>
-        /// Gets a log level.
+        /// Gets or sets a log level.
         /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
         [JsonProperty(PropertyName = "level")]
@@ -35,7 +36,7 @@ namespace Seeker.Model
         }
 
         /// <summary>
-        /// Gets a log message.
+        /// Gets or sets a log message.
         /// </summary>
         [JsonProperty(PropertyName = "message")]
         public string Message
@@ -45,7 +46,7 @@ namespace Seeker.Model
         }
 
         /// <summary>
-        /// Gets an exception info.
+        /// Gets or sets an exception info.
         /// </summary>
         [JsonProperty(PropertyName = "exception")]
         public LogException Exception
@@ -55,13 +56,37 @@ namespace Seeker.Model
         }
 
         /// <summary>
+        /// Gets value that represents if log contains an exception or not.
+        /// </summary>
+        [JsonProperty(PropertyName = "has_exception")]
+        public bool HasException
+        {
+            get
+            {
+                return Exception != null;
+            }
+        }
+
+        /// <summary>
         /// Gets custom properties.
         /// </summary>
         [JsonProperty(PropertyName = "properties")]
-        public IReadOnlyDictionary<string, object> Properties
+        public Dictionary<string, object> Properties
         {
             get;
             set;
+        }
+
+        /// <summary>
+        /// Gets value that represents if log contains properties or not.
+        /// </summary>
+        [JsonProperty(PropertyName = "has_properties")]
+        public bool HasProperties
+        {
+            get
+            {
+                return Properties != null;
+            }
         }
 
         #endregion

@@ -68,21 +68,6 @@ namespace Seeker.Configuration
             }
         }
 
-        /// <summary>
-        /// Gets or sets a raw log format.
-        /// </summary>
-        public LogFormatting Formatting
-        {
-            get
-            {
-                return _seekerSection.Formatting;
-            }
-            set
-            {
-                _seekerSection.Formatting = value;
-            }
-        }
-
         #endregion
     }
 }

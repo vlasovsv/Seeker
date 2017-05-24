@@ -10,28 +10,11 @@ namespace Seeker.Searching
         #region Constructors
 
         /// <summary>
-        /// Creates a new search request.
+        /// Creates a search request.
         /// </summary>
-        /// <param name="query">A search query.</param>
-        /// <param name="startDate">A start date of serching.</param>
-        /// <param name="endDate">An end date of searching.</param>
-        public SearchRequest(string query, DateTime startDate, DateTime endDate)
+        public SearchRequest()
         {
-            var upper = endDate;
-            var lower = startDate;
-            StartDate = lower;
-            EndDate = upper;
-            Query = query;
-        }
-
-        /// <summary>
-        /// Creates a new search request.
-        /// </summary>
-        /// <param name="query">A search query.</param>
-        public SearchRequest(string query)
-            : this(query, DateTime.Now.AddDays(-7), DateTime.Now)
-        {
-
+            Limit = 100;
         }
 
         #endregion
@@ -39,30 +22,12 @@ namespace Seeker.Searching
         #region Properties
 
         /// <summary>
-        /// Gets or sets a start date.
-        /// </summary>
-        public DateTime StartDate
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Gets or sets an end date.
-        /// </summary>
-        public DateTime EndDate
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
         /// Gets or sets a query.
         /// </summary>
         public string Query
         {
             get;
-            private set;
+            set;
         }
 
         /// <summary>
@@ -74,6 +39,42 @@ namespace Seeker.Searching
             {
                 return string.IsNullOrEmpty(Query);
             }
+        }
+
+        /// <summary>
+        /// Gets or sets offset.
+        /// </summary>
+        public int Offset
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets limit.
+        /// </summary>
+        public int Limit
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets value that means a server will return always 200 OK code if an exception occures.
+        /// </summary>
+        public bool SuppressResponseCodes
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets a field that will be used as a sort key.
+        /// </summary>
+        public string OrderBy
+        {
+            get;
+            set;
         }
 
         #endregion

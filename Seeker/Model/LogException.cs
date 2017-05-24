@@ -1,10 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+
+using Newtonsoft.Json;
 
 namespace Seeker.Model
 {
     /// <summary>
     /// Represents an information about exception.
     /// </summary>
+    [Serializable]
     public class LogException
     {
         #region Properties

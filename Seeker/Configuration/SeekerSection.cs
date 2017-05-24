@@ -41,22 +41,6 @@ namespace Seeker.Configuration
             }
         }
 
-        /// <summary>
-        /// Gets or sets a raw log format.
-        /// </summary>
-        [ConfigurationProperty("formatting", DefaultValue = LogFormatting.None)]
-        public LogFormatting Formatting
-        {
-            get
-            {
-                return (LogFormatting)this["formatting"];
-            }
-            set
-            {
-                this["formatting"] = value;
-            }
-        }
-
         #endregion
     }
 }
