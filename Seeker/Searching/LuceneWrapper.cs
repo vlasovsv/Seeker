@@ -162,7 +162,7 @@ namespace Seeker.Searching
                         var filter = new QueryWrapperFilter(query);
 
                         var order = GetOrderByOrDefault(request.OrderBy);
-                        var hits = searcher.Search(query, filter, 100000, order);
+                        var hits = searcher.Search(query, filter, 500000, order);
                         var limitDocs = hits.ScoreDocs.Skip(request.Offset).Take(request.Limit);
                         List<LogEventData> results = new List<LogEventData>(hits.TotalHits);
                         foreach (var scoreDoc in limitDocs)

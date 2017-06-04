@@ -1,6 +1,4 @@
 ﻿using Autofac;
-using System;
-
 using Nancy;
 using Nancy.ModelBinding;
 
@@ -35,14 +33,13 @@ namespace Seeker.Modules
                 var request = this.BindAndValidate<SearchRequest>();
 
                 var searchResult = _lucene.Search(request);
-                var model = new SearchModel();
 
                 ViewBag.Query = request.Query;
                 ViewBag.TotalCount = searchResult.TotalCount;
 
+                var pages = paginator.GetPages(string.Format("{0}{1}", Request.Url.SiteBase, Request.Url.Path), request, searchResult, 2);
 
-                model.Results = searchResult.Data;
-                model.Pages = paginator.GetPages(string.Format("{0}{1}", Request.Url.SiteBase, Request.Url.Path), request, searchResult, 2);
+                var model = new SearchModel(searchResult.Data, pages);
 
                 return Negotiate
                     .WithModel(model)

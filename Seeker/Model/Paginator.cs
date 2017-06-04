@@ -3,14 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Nancy.Helpers;
-
 using Seeker.Searching;
 
 namespace Seeker.Model
 {
+    /// <summary>
+    /// Represents a paginator.
+    /// </summary>
     public class Paginator
     {
+        /// <summary>
+        /// Gets a page collection that represents paging on a site page.
+        /// </summary>
+        /// <param name="siteBase">The site host.</param>
+        /// <param name="request">The search request.</param>
+        /// <param name="result">The search result.</param>
+        /// <param name="shift">The value that represents how many pages will show realtively the current page on pagination.</param>
+        /// <returns>
+        /// Returns the collection <see cref="PageModel"/> that represents paging on a site.
+        /// </returns>
         public IEnumerable<PageModel> GetPages(string siteBase, SearchRequest request, SearchResult result, int shift)
         {
             var lastPageIndex = (int)Math.Ceiling(result.TotalCount / (request.Limit * 1.0)) - 1;
@@ -56,7 +67,7 @@ namespace Seeker.Model
             sb.AppendFormat("&limit={0}", request.Limit);
             sb.AppendFormat("&orderby={0}", request.OrderBy);
 
-            return new Uri(HttpUtility.UrlPathEncode(sb.ToString()));
+            return new Uri(sb.ToString());
         }
     }
 }

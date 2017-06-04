@@ -1,9 +1,13 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+
+using Newtonsoft.Json;
 
 namespace Seeker.Model
 {
+    /// <summary>
+    /// Represents an API search result.
+    /// </summary>
     public class SearchResult
     {
         #region Private fields
@@ -14,11 +18,19 @@ namespace Seeker.Model
 
         #region Constructors
 
+        /// <summary>
+        /// Creates a new empty search result.
+        /// </summary>
         private SearchResult()
         {
             Data = new LogEventData[] { };
         }
 
+        /// <summary>
+        /// Creates a search result.
+        /// </summary>
+        /// <param name="data">The log collection.</param>
+        /// <param name="totalCount">The total count of logs.</param>
         public SearchResult(IEnumerable<LogEventData> data, int totalCount)
         {
             Data = data.ToArray();
@@ -29,6 +41,9 @@ namespace Seeker.Model
 
         #region Properties
 
+        /// <summary>
+        /// Gets an empty result.
+        /// </summary>
         public static SearchResult Empty
         {
             get
@@ -37,6 +52,9 @@ namespace Seeker.Model
             }
         }
 
+        /// <summary>
+        /// Gets the total count of logs.
+        /// </summary>
         [JsonProperty(PropertyName = "total_count")]
         public int TotalCount
         {

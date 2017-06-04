@@ -1,20 +1,60 @@
-﻿using System;
+﻿using System.Linq;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Seeker.Model
 {
+    /// <summary>
+    /// Represents a search page model.
+    /// </summary>
     public class SearchModel
     {
-        public IEnumerable<PageModel> Pages
+        #region Private fields
+
+        private readonly ReadOnlyCollection<PageModel> _pages;
+        private readonly ReadOnlyCollection<LogEventData> _results;
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Creates a new seach page model.
+        /// </summary>
+        /// <param name="results">The search result collection.</param>
+        /// <param name="pages">The pagination collection.</param>
+        public SearchModel(IEnumerable<LogEventData> results, IEnumerable<PageModel> pages)
         {
-            get;
-            set;
+            _results = new ReadOnlyCollection<LogEventData>(results.ToList());
+            _pages = new ReadOnlyCollection<PageModel>(pages.ToList());
         }
 
-        public IEnumerable<LogEventData> Results
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets a pagination collection.
+        /// </summary>
+        public IReadOnlyCollection<PageModel> Pages
         {
-            get;
-            set;
+            get
+            {
+                return _pages;
+            }
         }
+
+        /// <summary>
+        /// Gets a search result collection.
+        /// </summary>
+        public IReadOnlyCollection<LogEventData> Results
+        {
+            get
+            {
+                return _results;
+            }
+        }
+
+        #endregion
     }
 }

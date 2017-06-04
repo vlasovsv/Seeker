@@ -1,13 +1,10 @@
-﻿using System.Net;
-
-using Akka.Actor;
+﻿using Akka.Actor;
 using Akka.DI.Core;
 using Akka.DI.AutoFac;
 using Topshelf.Logging;
 
 using Seeker.Actors;
 using Seeker.Configuration;
-using System.Threading.Tasks;
 
 namespace Seeker
 {
