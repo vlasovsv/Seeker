@@ -6,13 +6,12 @@ using System.Linq;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
+using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
 using Lucene.Net.Store;
 using Newtonsoft.Json;
 
-using Seeker.Configuration;
-using Seeker.Model;
-using Lucene.Net.QueryParsers;
+using Seeker.Models;
 
 namespace Seeker.Searching
 {
@@ -32,11 +31,11 @@ namespace Seeker.Searching
         /// <summary>
         /// Creates an instnce of the lucene wrapper.
         /// </summary>
-        /// <param name="settings">Seeker settings.</param>
-        public LuceneWrapper(ISeekerSettings settings)
+        /// <param name="storePath">Store path.</param>
+        public LuceneWrapper(string storePath)
         {
             _defaultSort = new Sort(new SortField("Timestamp", SortField.STRING, true));
-            DataFolder = Path.Combine(settings.Store, "Index");
+            DataFolder = Path.Combine(storePath, "Index");
             if (!System.IO.Directory.Exists(DataFolder))
             {
                 System.IO.Directory.CreateDirectory(DataFolder);

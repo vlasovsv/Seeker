@@ -5,7 +5,7 @@ using System.Text;
 
 using Seeker.Searching;
 
-namespace Seeker.Model
+namespace Seeker.Models
 {
     /// <summary>
     /// Represents a paginator.
@@ -20,9 +20,9 @@ namespace Seeker.Model
         /// <param name="result">The search result.</param>
         /// <param name="shift">The value that represents how many pages will show realtively the current page on pagination.</param>
         /// <returns>
-        /// Returns the collection <see cref="PageModel"/> that represents paging on a site.
+        /// Returns the page block <see cref="PageBlock"/> that contains information about total amount of pages and page collection.
         /// </returns>
-        public IEnumerable<PageModel> GetPages(string siteBase, SearchRequest request, SearchResult result, int shift)
+        public PageBlock GetPages(string siteBase, SearchRequest request, SearchResult result, int shift)
         {
             var lastPageIndex = (int)Math.Ceiling(result.TotalCount / (request.Limit * 1.0)) - 1;
             var curPageIndex = (int)Math.Ceiling(request.Offset / (request.Limit * 1.0));
@@ -56,7 +56,7 @@ namespace Seeker.Model
                 pages.Add(pageModel);
             }
 
-            return pages;
+            return new PageBlock(lastPageIndex + 1, pages);
         }
 
         private Uri ConvertToUri(string siteBase, SearchRequest request, int offset)

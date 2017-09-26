@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Seeker.Model
+namespace Seeker.Models
 {
     /// <summary>
     /// Represents a page model for pagination.

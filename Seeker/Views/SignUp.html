@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="../Content/dist/twitter-bootstrap/3.3.7/bootstrap.min.css">
+    <link rel="stylesheet" href="../Content/signup.css" />
+    <title>Create a new account</title>
+</head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 col-md-offset-4">
+                    <h1 class="text-center text-title">Create a new account</h1>
+                    <div class="account-wall">
+                        <img class="profile-img" src="../Content/img/profile.png"
+                             alt="">
+                        <form class="form-signup" method="post" action="~/signup">
+                            <input name="UserName" type="text" class="form-control" placeholder="Username" required autofocus>
+                            <input name="UserPassword" type="password" class="form-control" placeholder="Password" required>
+                            <input name="ConfirmedUserPassword" type="password" class="form-control" placeholder="Confirm password" required>
+                            <button class="btn btn-lg btn-success btn-block" type="submit">
+                                Create
+                            </button>
+                            <span class="clearfix"></span>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

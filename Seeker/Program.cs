@@ -7,6 +7,7 @@ using Topshelf.Nancy;
 
 using Seeker.Configuration;
 using Seeker.Searching;
+using Seeker.Actors;
 
 namespace Seeker
 {
@@ -55,6 +56,7 @@ namespace Seeker
                     {
                         c.AddHost(port: settings.Port);
                         c.CreateUrlReservationsOnInstall();
+                        c.Bootstrapper = new SeekerBootstrapper(AutofacContext.Container);
                     });
                 });
                 x.EnableServiceRecovery(cfg => cfg.RestartService(1));
@@ -74,9 +76,9 @@ namespace Seeker
             builder.RegisterType<SeekerService>();
 
             builder.RegisterType<AppConfigSettings>().As<ISeekerSettings>();
-            builder.RegisterType<LuceneWrapper>().AsSelf().SingleInstance();
+            builder.Register<LuceneWrapper>(c => new LuceneWrapper(c.Resolve<ISeekerSettings>().Store)).AsSelf().SingleInstance();
 
-            builder.RegisterAssemblyTypes(typeof(Program).Assembly)
+            builder.RegisterAssemblyTypes(typeof(ActorPaths).Assembly)
                 .Where(x => typeof(ActorBase).IsAssignableFrom(x)).AsSelf();
         }
 

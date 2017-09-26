@@ -56,6 +56,7 @@ namespace Seeker
         {
             var processorManager = _system.ActorOf<MessageIngestor>(ActorPaths.MessageIngestor.Name);
             var indexer = _system.ActorOf(_system.DI().Props<Indexer>(), ActorPaths.Indexer.Name);
+            var userManager = _system.ActorOf(_system.DI().Props<UserManager>(), ActorPaths.UserManager.Name);
         }
 
         /// <summary>

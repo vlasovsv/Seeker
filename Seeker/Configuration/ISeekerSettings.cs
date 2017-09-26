@@ -17,6 +17,11 @@
         /// </summary>
         string Store { get; set; }
 
+        /// <summary>
+        /// Gets or sets a path to the security directory.
+        /// </summary>
+        string Security { get; set; }
+
         #endregion
     }
 }

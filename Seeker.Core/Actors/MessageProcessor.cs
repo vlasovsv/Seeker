@@ -1,8 +1,7 @@
 ﻿using Akka.Actor;
 using Newtonsoft.Json;
-using Topshelf.Logging;
 
-using Seeker.Model;
+using Seeker.Models;
 
 namespace Seeker.Actors
 {
@@ -89,12 +88,6 @@ namespace Seeker.Actors
 
         #endregion
 
-        #region Private fields
-
-        private readonly LogWriter _keeperLogger = HostLogger.Get("Keeper");
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
@@ -105,7 +98,7 @@ namespace Seeker.Actors
             Receive<SingleLog>(msg =>
             {
                 var logEventData = JsonConvert.DeserializeObject<LogEventData>(msg.RawLog);
-                Context.ActorOf<DocumentMapper>().Tell(logEventData);
+                SendLog(logEventData);
             });
 
             Receive<BatchLog>(msg =>
@@ -113,9 +106,18 @@ namespace Seeker.Actors
                 var logEvents = JsonConvert.DeserializeObject<LogEventData[]>(msg.RawLog);
                 foreach (var logEventData in logEvents)
                 {
-                    Context.ActorOf<DocumentMapper>().Tell(logEventData);
+                    SendLog(logEventData);
                 }
             });
+        }
+
+        #endregion
+
+        #region Methods
+
+        private void SendLog(LogEventData log)
+        {
+            Context.ActorOf<DocumentMapper>().Tell(log);
         }
 
         #endregion

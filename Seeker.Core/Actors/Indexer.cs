@@ -1,6 +1,5 @@
 ﻿using Akka.Actor;
 using Lucene.Net.Documents;
-using Topshelf.Logging;
 
 using Seeker.Searching;
 
@@ -13,7 +12,6 @@ namespace Seeker.Actors
     {
         #region Private fields
 
-        private readonly LogWriter _seekerLogger = HostLogger.Get("Seeker");
         private readonly LuceneWrapper _lucene;
 
         #endregion

@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Seeker.Model
+namespace Seeker.Models
 {
     /// <summary>
     /// Represents a log event.
@@ -12,6 +12,27 @@ namespace Seeker.Model
     [Serializable]
     public class LogEventData
     {
+        #region Constructors
+
+        /// <summary>
+        /// Creates a new log event.
+        /// </summary>
+        /// <param name="timestamp">The log timestamp.</param>
+        /// <param name="level">The log level.</param>
+        /// <param name="message">The log message.</param>
+        /// <param name="exception">The log exception.</param>
+        /// <param name="properties">The log additional properties.</param>
+        public LogEventData(DateTime timestamp, LogLevel level, string message, LogException exception, ReadOnlyDictionary<string, object> properties)
+        {
+            Timestamp = timestamp;
+            Level = level;
+            Message = message;
+            Exception = exception;
+            Properties = properties;
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>
@@ -21,7 +42,7 @@ namespace Seeker.Model
         public DateTime Timestamp
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -32,7 +53,7 @@ namespace Seeker.Model
         public LogLevel Level
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -42,7 +63,7 @@ namespace Seeker.Model
         public string Message
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -52,7 +73,7 @@ namespace Seeker.Model
         public LogException Exception
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -71,10 +92,10 @@ namespace Seeker.Model
         /// Gets custom properties.
         /// </summary>
         [JsonProperty(PropertyName = "properties")]
-        public Dictionary<string, object> Properties
+        public ReadOnlyDictionary<string, object> Properties
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>

@@ -22,10 +22,10 @@ namespace Seeker.Modules
         /// <summary>
         /// Creates a search api module.
         /// </summary>
-        public ApiSearchModule()
+        public ApiSearchModule(LuceneWrapper lucene)
             : base("api/v1/")
         {
-            _lucene = AutofacContext.Container.Resolve<LuceneWrapper>();
+            _lucene = lucene;
 
             Get("/search", parameters =>
             {

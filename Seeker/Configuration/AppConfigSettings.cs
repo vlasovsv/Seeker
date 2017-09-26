@@ -68,6 +68,21 @@ namespace Seeker.Configuration
             }
         }
 
+        /// <summary>
+        /// Gets or sets a path to the security directory.
+        /// </summary>
+        public string Security
+        {
+            get
+            {
+                return _seekerSection.Security;
+            }
+            set
+            {
+                _seekerSection.Security = value;
+            }
+        }
+
         #endregion
     }
 }

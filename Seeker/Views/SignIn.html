@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="../Content/dist/twitter-bootstrap/3.3.7/bootstrap.min.css">
+    <link rel="stylesheet" href="../Content/signin.css" />
+    <title>Seeker Sign in</title>
+</head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 col-md-offset-4">
+                    <h1 class="text-center login-title">Sign in</h1>
+                    <div class="account-wall">
+                        <img class="profile-img" src="../Content/img/profile.png"
+                             alt="">
+                        <form class="form-signin" method="post" action="~/signin">
+                            @If.Error
+                            <div class="alert alert-danger" role="alert">Login or password is not valid</div>
+                            @EndIf
+                            <input name="username" type="text" class="form-control" placeholder="Username" value="@Model.Username" required autofocus>
+                            <input name="userpassword" type="password" class="form-control" placeholder="Password" required>
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">
+                                Sign in
+                            </button>
+                            <div class="checkbox">
+                                <label><input name="rememberme" type="checkbox" value="">Remember me</label>
+                            </div>
+                            <span class="clearfix"></span>
+                        </form>
+                    </div>
+                    <a href="~/signup" class="text-center new-account">Create an account </a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

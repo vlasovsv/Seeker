@@ -8,3 +8,4 @@ obj/
 *.suo
 /Seeker/*.user
 /*/config
+/.vs/Seeker/v15/sqlite3/storage.ide

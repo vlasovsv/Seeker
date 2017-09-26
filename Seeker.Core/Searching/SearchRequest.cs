@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Seeker.Searching
+﻿namespace Seeker.Searching
 {
     /// <summary>
     /// Represents a search request to Seeker.
@@ -72,6 +70,15 @@ namespace Seeker.Searching
         /// Gets or sets a field that will be used as a sort key.
         /// </summary>
         public string OrderBy
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the query result includes relation links.
+        /// </summary>
+        public bool IncludeLinks
         {
             get;
             set;

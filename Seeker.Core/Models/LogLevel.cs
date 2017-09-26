@@ -1,4 +1,4 @@
-﻿namespace Seeker.Model
+﻿namespace Seeker.Models
 {
     /// <summary>
     /// Represents a log level.

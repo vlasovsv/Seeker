@@ -41,6 +41,22 @@ namespace Seeker.Configuration
             }
         }
 
+        /// <summary>
+        /// Gets or sets a path to the security directory.
+        /// </summary>
+        [ConfigurationProperty("security", DefaultValue = @".\Security")]
+        public string Security
+        {
+            get
+            {
+                return (string)this["security"];
+            }
+            set
+            {
+                this["security"] = value;
+            }
+        }
+
         #endregion
     }
 }

@@ -3,7 +3,7 @@
 @Section['Content']
 <div class="row">
     <div class="col-lg-7">
-        <h3>@ViewBag.TotalCount<span> results</span></h3>
+        <h3>@Model.TotalCount<span> results</span></h3>
     </div>
     <div class="col-lg-5">
         @Partial['Pagination', @Current.Pages]
@@ -13,7 +13,7 @@
     <div class="col-lg-12">
         <div class="table-responsive">
             <table id="log-table" class="table table-hover wrap">
-                @Partial['LogEventData', @Current.Results]
+                @Partial['LogEventData', @Current.Data]
             </table>
         </div>
     </div>

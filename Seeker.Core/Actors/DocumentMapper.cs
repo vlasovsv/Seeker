@@ -4,7 +4,7 @@ using Akka.Actor;
 using Lucene.Net.Documents;
 using Newtonsoft.Json;
 
-using Seeker.Model;
+using Seeker.Models;
 
 namespace Seeker.Actors
 {

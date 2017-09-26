@@ -3,7 +3,7 @@ using System.Linq;
 
 using Newtonsoft.Json;
 
-namespace Seeker.Model
+namespace Seeker.Models
 {
     /// <summary>
     /// Represents an API search result.
@@ -62,6 +62,9 @@ namespace Seeker.Model
             private set;
         }
 
+        /// <summary>
+        /// Gets the result collection of searching.
+        /// </summary>
         [JsonProperty(PropertyName = "data")]
         public LogEventData[] Data
         {

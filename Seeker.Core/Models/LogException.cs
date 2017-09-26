@@ -2,7 +2,7 @@
 
 using Newtonsoft.Json;
 
-namespace Seeker.Model
+namespace Seeker.Models
 {
     /// <summary>
     /// Represents an information about exception.
