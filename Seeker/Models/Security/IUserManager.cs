@@ -9,7 +9,6 @@ namespace Seeker.Models.Security
     /// </summary>
     public interface IUserManager : IUserMapper
     {
-
         Guid? Validate(string userName, string password);
 
         void Register(string userName, string password);

@@ -1,13 +1,14 @@
-﻿using Nancy;
+﻿using System;
+
+using Nancy;
 using Nancy.Authentication.Forms;
 using Nancy.Extensions;
 using Nancy.ModelBinding;
-using System;
 
-using Seeker.Models.Pages;
-using Seeker.Models.Security;
 using Seeker.Actors;
 using Seeker.Messages;
+using Seeker.Models.Pages;
+using Seeker.Models.Security;
 
 namespace Seeker.Modules
 {

@@ -4,30 +4,39 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="stylesheet" href="../Content/dist/twitter-bootstrap/3.3.7/bootstrap.min.css">
+    <link rel="stylesheet" href="../Content/css/spectre.min.css">
     <link rel="stylesheet" href="../Content/signup.css" />
     <title>Create a new account</title>
 </head>
     <body>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6 col-md-4 col-md-offset-4">
-                    <h1 class="text-center text-title">Create a new account</h1>
-                    <div class="account-wall">
-                        <img class="profile-img" src="../Content/img/profile.png"
-                             alt="">
-                        <form class="form-signup" method="post" action="~/signup">
-                            <input name="UserName" type="text" class="form-control" placeholder="Username" required autofocus>
-                            <input name="UserPassword" type="password" class="form-control" placeholder="Password" required>
-                            <input name="ConfirmedUserPassword" type="password" class="form-control" placeholder="Confirm password" required>
-                            <button class="btn btn-lg btn-success btn-block" type="submit">
-                                Create
-                            </button>
-                            <span class="clearfix"></span>
-                        </form>
-                    </div>
+        <div class="container m-2">
+            <div class="columns">
+                <div class="col-3 col-md-8 col-xs-12 col-mx-auto">
+                    <form action="~/signup" method="post">
+                        <div class="panel">
+                            <div class="panel-header">
+                                <div class="panel-title">Create a new account</div>
+                            </div>
+                            <div class="panel-body">
+                                @If.Error
+                                <span class="text-error">Passwords mismatched</span>
+                                @EndIf
+                                <div class="form-group">
+                                    <label class="form-label" for="username-input">Username</label>
+                                    <input name="username" class="form-input" type="text" id="username-input" placeholder="Username" required autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="userpassword-input">Password</label>
+                                    <input name="userpassword" class="form-input" type="password" id="userpassword-input" placeholder="Password" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="confirmed-userpassword-input">Confirm password</label>
+                                    <input name="confirmeduserpassword" class="form-input" type="password" id="confirmed-userpassword-input" placeholder="Password" required>
+                                </div>
+                                <button class="btn btn-primary btn-block my-2" type="submit">Create</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

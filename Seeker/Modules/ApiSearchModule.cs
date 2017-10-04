@@ -1,5 +1,4 @@
-﻿using Autofac;
-using Nancy;
+﻿using Nancy;
 using Nancy.ModelBinding;
 
 using Seeker.Searching;

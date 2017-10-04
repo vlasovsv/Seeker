@@ -157,6 +157,10 @@ namespace Seeker.Searching
                             var contentQuery = parser.Parse(request.Query);
                             query.Add(contentQuery, Occur.MUST);
                         }
+                        else
+                        {
+                            query.Add(new MatchAllDocsQuery(), Occur.MUST);
+                        }
 
                         var filter = new QueryWrapperFilter(query);
 

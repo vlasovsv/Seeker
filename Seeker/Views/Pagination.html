@@ -1,10 +1,17 @@
-﻿<ul class="pagination pull-right">
+﻿<ul class="pagination">
     @Each
     @If.IsGap
-    <li><a>...</a></li>
+    <li class="page-item">
+        <span>...</span>
+    </li>
     @EndIf
     @IfNot.IsGap
-    <li @If.IsCurrent class="active" @EndIf><a href="@Current.Link">@Current.Name</a></li>
+        @If.IsCurrent
+        <li class="page-item active"><a href="#">@Current.Name</a></li>
+        @EndIf
+        @IfNot.IsCurrent
+        <li class="page-item"><a href="@Current.Link">@Current.Name</a></li>
+        @EndIf
     @EndIf
     @EndEach
 </ul>

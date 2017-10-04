@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.Claims;
+using System.Security.Principal;
 
 using Nancy;
-using Seeker.Configuration;
 using Newtonsoft.Json;
-using System.Linq;
-using System.Security.Principal;
+
+using Seeker.Configuration;
 
 namespace Seeker.Models.Security
 {
+    /// <summary>
+    /// Represents a user manager.
+    /// </summary>
     public sealed class UserManager : IUserManager
     {
         #region Private fields
@@ -24,6 +28,10 @@ namespace Seeker.Models.Security
 
         #region Constructors
 
+        /// <summary>
+        /// Creates a new user manager.
+        /// </summary>
+        /// <param name="settings">Seeker settngs.</param>
         public UserManager(ISeekerSettings settings)
         {
             _settings = settings;
@@ -36,6 +44,14 @@ namespace Seeker.Models.Security
 
         #region Methods
 
+        /// <summary>
+        /// Get the real username from an identifier.
+        /// </summary>
+        /// <param name="identifier">User identifier.</param>
+        /// <param name="context">The current NancyFx context.</param>
+        /// <returns>
+        /// Matching populated IUserIdentity object, or empty.
+        /// </returns>
         public ClaimsPrincipal GetUserFromIdentifier(Guid identifier, NancyContext context)
         {
             var userInfo = _users.FirstOrDefault(x => x.ID == identifier);
@@ -49,6 +65,11 @@ namespace Seeker.Models.Security
             }
         }
 
+        /// <summary>
+        /// Registers a new user.
+        /// </summary>
+        /// <param name="userName">Username.</param>
+        /// <param name="password">User password.</param>
         public void Register(string userName, string password)
         {
             var passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
@@ -57,6 +78,14 @@ namespace Seeker.Models.Security
             StoreUsers();
         }
 
+        /// <summary>
+        /// Validates a pair of username and password.
+        /// </summary>
+        /// <param name="userName">Username.</param>
+        /// <param name="password">User password.</param>
+        /// <returns>
+        /// If this security pair is valid returns a user identifier, otherwise null.
+        /// </returns>
         public Guid? Validate(string userName, string password)
         {
             var userInfo = _users.FirstOrDefault(x => x.UserName == userName 
@@ -72,6 +101,9 @@ namespace Seeker.Models.Security
             }
         }
 
+        /// <summary>
+        /// Reloads users.
+        /// </summary>
         private void ReloadUsers()
         {
             if (File.Exists(_userFileLocation))
@@ -90,6 +122,9 @@ namespace Seeker.Models.Security
             }
         }
 
+        /// <summary>
+        /// Stores users.
+        /// </summary>
         private void StoreUsers()
         {
             lock (_locker)

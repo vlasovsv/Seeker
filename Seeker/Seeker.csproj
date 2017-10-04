@@ -114,6 +114,7 @@
     <Compile Include="Configuration\AppConfigSettings.cs" />
     <Compile Include="Configuration\ISeekerSettings.cs" />
     <Compile Include="Models\Pages\ErrorSignInModel.cs" />
+    <Compile Include="Models\Pages\ErrorSignUpModel.cs" />
     <Compile Include="Models\Pages\PageBlock.cs" />
     <Compile Include="Models\Pages\PagedResult.cs" />
     <Compile Include="Models\Pages\PageModel.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="Modules\LogsModule.cs" />
     <Compile Include="Modules\ApiSearchModule.cs" />
     <Compile Include="Modules\DiscoverModule.cs" />
+    <Compile Include="Modules\SignOutModule.cs" />
     <Compile Include="Modules\SignUpModule.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -142,18 +144,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Content\dist\twitter-bootstrap\fonts\glyphicons-halflings-regular.eot">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\dist\twitter-bootstrap\fonts\glyphicons-halflings-regular.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\dist\twitter-bootstrap\fonts\glyphicons-halflings-regular.woff">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\dist\twitter-bootstrap\fonts\glyphicons-halflings-regular.woff2">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="Nlog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -164,43 +154,40 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Content\dist\jquery-3.2.1.min.js">
+    <Content Include="Content\css\spectre-exp.min.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\dist\twitter-bootstrap\3.3.7\bootstrap.min.css">
+    <Content Include="Content\css\spectre-icons.min.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\dist\twitter-bootstrap\3.3.7\bootstrap.min.js">
+    <Content Include="Content\css\spectre.min.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\dist\twitter-bootstrap\fonts\glyphicons-halflings-regular.svg">
+    <Content Include="Content\js\vendor\jquery-3.2.1.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\img\profile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\signup.css">
+    <Content Include="Content\css\signup.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\signin.css">
+    <Content Include="Content\css\signin.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\seeker.css">
+    <Content Include="Content\css\seeker.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\seeker.ie.js">
+    <Content Include="Content\js\seeker.ie.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\seeker.js">
+    <Content Include="Content\js\seeker.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\SignUp.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\MasterPage.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Views\LogEventData.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Pagination.html">
@@ -213,9 +200,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Discover.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Views\Index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

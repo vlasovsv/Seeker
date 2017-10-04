@@ -1,5 +1,6 @@
 ﻿using Nancy;
 using Nancy.ModelBinding;
+using Nancy.Security;
 
 using Seeker.Models;
 using Seeker.Searching;
@@ -25,14 +26,17 @@ namespace Seeker.Modules
         /// <param name="lucene">A Lucene client.</param>
         public DiscoverModule(LuceneWrapper lucene)
         {
+            this.RequiresAuthentication();
+
             _lucene = lucene;
 
             var paginator = new Paginator();
 
             Get("/discover", parameters =>
             {
-                var request = this.BindAndValidate<SearchRequest>();
+                ViewBag.CurrentUser = Context.CurrentUser.Identity.Name;
 
+                var request = this.BindAndValidate<SearchRequest>();
                 var searchResult = _lucene.Search(request);
 
                 ViewBag.Query = request.Query;

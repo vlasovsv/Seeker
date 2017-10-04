@@ -3,10 +3,13 @@
         $(el).addClass("label");
         switch($(el).text()) {
             case "Debug":
-                $(el).addClass("label-warning");
+                $(el).addClass("label-secondary");
                 break;
             case "Error":
-                $(el).addClass("label-danger");
+                $(el).addClass("label-error");
+                break;
+            case "Warn":
+                $(el).addClass("label-warning");
                 break;
             default:
                  $(el).addClass("label-primary");
@@ -14,6 +17,6 @@
     });
 });
 
-$(document).on("click", ".expander", function () {
-    $(this).siblings("div").toggleClass("hidden");
+$(document).on("click", "#log-table > tbody > tr.expanded-row", function () {
+    $(this).next().toggleClass("d-hide");
 })

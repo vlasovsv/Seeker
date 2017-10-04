@@ -1,0 +1,26 @@
+﻿header {
+    padding: 10px;
+}
+
+.level {
+    vertical-align:central;
+}
+
+.expanded-row {
+    cursor: pointer;
+}
+
+.exception-block {
+    background-color: #d9534f;
+    color: #fff;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+.top-vertical {
+    vertical-align: top;
+}
+
+#log-table tr {
+    vertical-align:top;
+}

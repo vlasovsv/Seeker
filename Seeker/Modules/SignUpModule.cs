@@ -1,4 +1,7 @@
-﻿using Nancy;
+﻿using System.Linq;
+
+using Nancy;
+using Nancy.Extensions;
 using Nancy.ModelBinding;
 
 using Seeker.Models.Pages;
@@ -13,7 +16,7 @@ namespace Seeker.Modules
     {
         #region Private fields
 
-        private readonly IUserManager userManager;
+        private readonly IUserManager _userManager;
 
         #endregion
 
@@ -25,20 +28,31 @@ namespace Seeker.Modules
         /// <param name="userManager">A user manager.</param>
         public SignUpModule(IUserManager userManager)
         {
+            _userManager = userManager;
+
             Get("/signup", parameters =>
             {
-                return Negotiate.WithView("signup");
+                var model = this.Bind<ErrorSignUpModel>();
+                return Negotiate
+                    .WithModel(model)
+                    .WithView("signup");
             });
 
             Post("/signup", parameters =>
             {
                 var registration = this.BindAndValidate<UserRegistrationModel>();
 
-                userManager.Register(registration.UserName, registration.UserPassword);
-
-                return Response.AsRedirect("/");
+                if (Context.ModelValidationResult.IsValid)
+                {
+                    _userManager.Register(registration.UserName, registration.UserPassword);
+                    return Response.AsRedirect("/");
+                }
+                else
+                {
+                    return this.Context.GetRedirect(string.Format("~/signup?error=true"));
+                }
+                
             });
-            this.userManager = userManager;
         }
 
         #endregion

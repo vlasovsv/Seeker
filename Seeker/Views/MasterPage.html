@@ -4,48 +4,49 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="stylesheet" href="../Content/dist/twitter-bootstrap/3.3.7/bootstrap.min.css">
-    <link rel="stylesheet" href="../Content/seeker.css" />
+    <link rel="stylesheet" href="../Content/css/spectre.min.css">
+    <link rel="stylesheet" href="../Content/css/spectre-exp.min.css">
+    <link rel="stylesheet" href="../Content/css/spectre-icons.min.css">
+    <link rel="stylesheet" href="../Content/css/seeker.css" />
     <title>Seeker</title>
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">Seeker</a>
+    <header class="navbar">
+        <section class="navbar-section">
+            <a href="#" class="navbar-brand mr-2">Seeker</a>
+            <a href="~/discover" class="btn btn-link">Discover</a>
+            <a href="~/dashboard" class="btn btn-link">Dashboard</a>
+            <a href="~/settings" class="btn btn-link">Settings</a>
+        </section>
+        @Section['Topbar']
+        <section class="navbar-section">
+            <div class="dropdown">
+                <div class="btn-group">
+                    <a class="btn btn-primary">@ViewBag.CurrentUser</a>
+                    <a class="btn btn-primary dropdown-toggle" tabindex="0"><i class="icon icon-caret"></i></a>
+                    <ul class="menu">
+                        <li class="menu-item">
+                            <a href="~/settings">
+                                Settings
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="~/signout">
+                                Sign out
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/about">About</a></li>
-                </ul>
-                <form class="navbar-form" method="get" action="~/discover">
-                    <div class="form-group" style="display:inline;">
-                        <div class="input-group" style="display:table;">
-                            <span class="input-group-addon" style="width:1%;"><span class="glyphicon glyphicon-search"></span></span>
-                            <input class="form-control" name="query" placeholder="Search Here" autocomplete="off" type="text" value="@!ViewBag.Query">
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </nav>
-    <div class="container">
+        </section>
+    </header>
+    <div class="container grid-xl">
         @Section['Content']
     </div>
-
-    <script src="../Content/dist/jquery-3.2.1.min.js"></script>
-    <script src="../Content/dist/twitter-bootstrap/3.3.7/bootstrap.min.js"></script>
-    <script src="../Content/seeker.js"></script>
+    <script src="../Content/js/vendor/jquery-3.2.1.min.js"></script>
+    <script src="../Content/js/seeker.js"></script>
     <![if IE]>
-    <script src="../Content/seeker.ie.js"></script>
+    <script src="../Content/js/seeker.ie.js"></script>
     <![endif]>
 </body>
 </html>
