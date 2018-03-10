@@ -5,6 +5,7 @@ using Topshelf.Logging;
 
 using Seeker.Actors;
 using Seeker.Configuration;
+using System.Threading.Tasks;
 
 namespace Seeker
 {

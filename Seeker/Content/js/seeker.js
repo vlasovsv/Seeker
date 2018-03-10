@@ -1,5 +1,5 @@
 ﻿$(document).ready(function() {
-    $.map($("#log-table > tbody > tr > td > span"), function(el) {
+    $.map($("#logs > .card > .card-header > div > span"), function(el) {
         $(el).addClass("label");
         switch($(el).text()) {
             case "Debug":
@@ -17,6 +17,6 @@
     });
 });
 
-$(document).on("click", "#log-table > tbody > tr.expanded-row", function () {
+$(document).on("click", "#logs > .card > .card-footer > .btn", function () {
     $(this).next().toggleClass("d-hide");
 })

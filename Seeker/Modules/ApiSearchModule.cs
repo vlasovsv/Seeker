@@ -10,12 +10,6 @@ namespace Seeker.Modules
     /// </summary>
     public sealed class ApiSearchModule : NancyModule
     {
-        #region Private fields
-
-        private readonly LuceneWrapper _lucene;
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
@@ -24,8 +18,6 @@ namespace Seeker.Modules
         public ApiSearchModule(LuceneWrapper lucene)
             : base("api/v1/")
         {
-            _lucene = lucene;
-
             Get("/search", parameters =>
             {
                 var request = this.BindAndValidate<SearchRequest>();
@@ -45,7 +37,7 @@ namespace Seeker.Modules
                     }
                 }
 
-                var result = _lucene.Search(request);
+                var result = lucene.Search(request);
 
                 return Negotiate.WithModel(result).WithFullNegotiation();
             });

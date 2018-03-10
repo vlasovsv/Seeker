@@ -24,3 +24,15 @@
 #log-table tr {
     vertical-align:top;
 }
+
+.mr-1 {
+    margin-right : 4px;
+}
+
+.mr-2 {
+    margin-right : 8px;
+}
+
+.no-background {
+    background: none !important;
+}

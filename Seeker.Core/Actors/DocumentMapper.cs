@@ -38,7 +38,8 @@ namespace Seeker.Actors
         {
             var doc = new Document();
 
-            doc.Add(new Field("Timestamp", DateTools.DateToString(logEvent.Timestamp, DateTools.Resolution.SECOND), Field.Store.NO, Field.Index.ANALYZED));
+            doc.Add(new Field("Timestamp", DateTools.DateToString(logEvent.Timestamp, DateTools.Resolution.MILLISECOND), 
+                Field.Store.NO, Field.Index.ANALYZED));
             doc.Add(new Field("Level", logEvent.Level.ToString(), Field.Store.NO, Field.Index.ANALYZED));
             doc.Add(new Field("Message", logEvent.Message, Field.Store.NO, Field.Index.ANALYZED));
 

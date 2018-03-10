@@ -62,6 +62,7 @@
     <Compile Include="Actors\Indexer.cs" />
     <Compile Include="Actors\MessageIngestor.cs" />
     <Compile Include="Actors\MessageProcessor.cs" />
+    <Compile Include="Actors\StatisticsManager.cs" />
     <Compile Include="Actors\UserActor.cs" />
     <Compile Include="Actors\UserManager.cs" />
     <Compile Include="Messages\UserLoggedInMessage.cs" />

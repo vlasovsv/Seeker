@@ -2,7 +2,7 @@
 
 @Section['Content']
 <div class="columns">
-    <div class="column col-10 col-xs-12 col-md-10">
+    <div class="column col-12 col-xs-12 col-md-12">
         <form action="~/discover">
             <div class="input-group">
                 <input class="form-input" type="search" placeholder="Search" name="query" value="@!ViewBag.Query" />
@@ -10,52 +10,54 @@
             </div>
         </form>
     </div>
-    </div>
-    <div class="column col-10 col-xs-12 col-md-10">
+    <div class="column col-12 col-xs-12 col-md-12">
         @Partial['Pagination', @Current.Pages]
     </div>
-    <div class="column col-10">
-        <table id="log-table" class="table">
-            <thead>
-                <tr>
-                    <th width="200px">Timestamp</th>
-                    <th width="100px">Level</th>
-                    <th>Message</th>
-                </tr>
-            </thead>
-            <tbody>
-                ﻿@Each.Data
-                <tr class="expanded-row">
-                    <td>
-                        <p class="top-vertical">@Current.Timestamp</p>
-                    </td>
-                    <td>
-                        <span class="top-vertical">@Current.Level</span>
-                    </td>
-                    <td>
-                        <p class="top-vertical">@!Current.Message</p>
-                    </td>
-                </tr>
-                <tr class="d-hide">
-                    <td colspan="3">
-                        <div class="row">
-                            @If.HasProperties
-                            <div>@Partial['Properties', @Current.Properties];</div>
-                            @EndIf
-                            @If.HasException
-                            <div class="exception-block">
-                                @!Current.Exception.Message
-                            </div>
-                            @EndIf
+    <div class="columns col-12 col-xs-12 col-md-12">
+        @If.HasData
+        <div class="column col-12 col-xs-12" id="logs">
+            ﻿@Each.Data
+            <div class="card mt-2">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="float-left mr-2">@Current.Level</span>
+                        <p>@Current.Timestamp</p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    @!Current.Message
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-link">Show parameters</button>
+                    <div class="row d-hide mt-1">
+                        @If.HasProperties
+                        <div>@Partial['Properties', @Current.Properties];</div>
+                        @EndIf
+                        @If.HasException
+                        <b>ExceptionType:</b> @Current.Exception.Type<br />
+                        <div class="exception-block">
+                            @!Current.Exception.Message
                         </div>
-                    </td>
-                </tr>
-                @EndEach
-            </tbody>
-        </table>
+                        @EndIf
+                    </div>
+                </div>
+            </div>
+            @EndEach
+        </div>
+        @EndIf
+        @IfNot.HasData
+        <div class="column col-12 col-xs-12">
+            <div class="empty no-background">
+                <div class="empty-icon">
+                    <i class="icon icon-3x icon-message"></i>
+                </div>
+                <p class="empty-title h5">There are no logs according to this query.</p>
+                <p class="empty-subtitle">Please change query and try again.</p>
+            </div>
+        </div>
+        @EndIf
+        <div class="column col-12 col-xs-12 col-md-12">
+            @Partial['Pagination', @Current.Pages]
+        </div>
     </div>
-    <div class="column col-10 col-xs-12 col-md-10">
-        @Partial['Pagination', @Current.Pages]
-    </div>
-</div>
 @EndSection
