@@ -1,63 +1,73 @@
 ﻿@Master['MasterPage']
 
+@Section['Styles']
+<link rel="stylesheet" href="../Content/css/seeker.css" />
+@EndSection
+
 @Section['Content']
-<div class="columns">
+<div class="columns col-gapless search-bar">
     <div class="column col-12 col-xs-12 col-md-12">
         <form action="~/discover">
             <div class="input-group">
                 <input class="form-input" type="search" placeholder="Search" name="query" value="@!ViewBag.Query" />
                 <button class="btn btn-primary input-group-btn" type="submit"><i class="icon icon-search"></i></button>
+                <a class="btn btn-primary input-group-btn"><i class="icon icon-bookmark"></i></a>
             </div>
         </form>
     </div>
+    @Partial['Pagination', @Current.Pages]
+</div>
+<div class="columns col-12 col-xs-12 col-md-12 mt-2">
+    @If.HasData
+    <div class="column col-12 col-xs-12" id="logs">
+        ﻿@Each.Data
+        <div class="card mt-2">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="float-left mr-2">@Current.Level</span>
+                    <p>@Current.Timestamp</p>
+                </div>
+            </div>
+            <div class="card-body">
+                @!Current.Message
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-link">Show parameters</button>
+                <div class="row d-hide mt-1">
+                    @If.HasProperties
+                    <div>@Partial['Properties', @Current.Properties];</div>
+                    @EndIf
+                    @If.HasException
+                    <b>ExceptionType:</b> @Current.Exception.Type<br />
+                    <div class="exception-block">
+                        @!Current.Exception.Message
+                    </div>
+                    @EndIf
+                </div>
+            </div>
+        </div>
+        @EndEach
+    </div>
+    @EndIf
+    @IfNot.HasData
+    <div class="column col-12 col-xs-12">
+        <div class="empty no-background">
+            <div class="empty-icon">
+                <i class="icon icon-3x icon-message"></i>
+            </div>
+            <p class="empty-title h5">There are no logs according to this query.</p>
+            <p class="empty-subtitle">Please change query and try again.</p>
+        </div>
+    </div>
+    @EndIf
     <div class="column col-12 col-xs-12 col-md-12">
         @Partial['Pagination', @Current.Pages]
     </div>
-    <div class="columns col-12 col-xs-12 col-md-12">
-        @If.HasData
-        <div class="column col-12 col-xs-12" id="logs">
-            ﻿@Each.Data
-            <div class="card mt-2">
-                <div class="card-header">
-                    <div class="card-title">
-                        <span class="float-left mr-2">@Current.Level</span>
-                        <p>@Current.Timestamp</p>
-                    </div>
-                </div>
-                <div class="card-body">
-                    @!Current.Message
-                </div>
-                <div class="card-footer">
-                    <button class="btn btn-link">Show parameters</button>
-                    <div class="row d-hide mt-1">
-                        @If.HasProperties
-                        <div>@Partial['Properties', @Current.Properties];</div>
-                        @EndIf
-                        @If.HasException
-                        <b>ExceptionType:</b> @Current.Exception.Type<br />
-                        <div class="exception-block">
-                            @!Current.Exception.Message
-                        </div>
-                        @EndIf
-                    </div>
-                </div>
-            </div>
-            @EndEach
-        </div>
-        @EndIf
-        @IfNot.HasData
-        <div class="column col-12 col-xs-12">
-            <div class="empty no-background">
-                <div class="empty-icon">
-                    <i class="icon icon-3x icon-message"></i>
-                </div>
-                <p class="empty-title h5">There are no logs according to this query.</p>
-                <p class="empty-subtitle">Please change query and try again.</p>
-            </div>
-        </div>
-        @EndIf
-        <div class="column col-12 col-xs-12 col-md-12">
-            @Partial['Pagination', @Current.Pages]
-        </div>
-    </div>
+</div>
+@EndSection
+@Section['Scripts']
+<script src="../Content/js/seeker.js"></script>
+<![if IE]>
+<script src="../Content/js/seeker.ie.js"></script>
+<![endif]>
 @EndSection

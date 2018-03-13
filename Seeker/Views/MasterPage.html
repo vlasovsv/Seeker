@@ -7,46 +7,56 @@
     <link rel="stylesheet" href="../Content/css/spectre.min.css">
     <link rel="stylesheet" href="../Content/css/spectre-exp.min.css">
     <link rel="stylesheet" href="../Content/css/spectre-icons.min.css">
-    <link rel="stylesheet" href="../Content/css/seeker.css" />
+    <link rel="stylesheet" href="../Content/css/main.css" />
+    @Section['Styles']
     <title>Seeker</title>
 </head>
 <body>
-    <header class="navbar">
-        <section class="navbar-section">
-            <a href="#" class="navbar-brand mr-2">Seeker</a>
-            <a href="~/discover" class="btn btn-link">Discover</a>
-            <a href="~/dashboard" class="btn btn-link">Dashboard</a>
-            <a href="~/settings" class="btn btn-link">Settings</a>
-        </section>
-        @Section['Topbar']
-        <section class="navbar-section">
-            <div class="dropdown">
-                <div class="btn-group">
-                    <a class="btn btn-primary">@ViewBag.CurrentUser</a>
-                    <a class="btn btn-primary dropdown-toggle" tabindex="0"><i class="icon icon-caret"></i></a>
-                    <ul class="menu">
-                        <li class="menu-item">
-                            <a href="~/settings">
-                                Settings
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="~/signout">
-                                Sign out
-                            </a>
-                        </li>
-                    </ul>
+    <div class="container">
+        <div class="columns col-gapless">
+            <div class="column col-2">
+                <div class="sidebar">
+                    <div class="seeker-brand">
+                        <a href="/" class="seeker-logo">
+                            <img src="../Content/img/seeker-logo.png" alt="Seeker" />
+                            <h2>SEEKER</h2>
+                        </a>
+                    </div>
+                    <div class="seeker-nav">
+                        <div class="accordion-container">
+                            <div class="accordion">
+                                <input type="checkbox" id="docs-accordion-1" name="docs-accordion-checkbox" hidden checked>
+                                <label class="accordion-header c-hand" for="docs-accordion-1">
+                                    Discover logs
+                                </label>
+                                <div class="accordion-body">
+                                    <ul class="menu menu-nav">
+                                        <li class="menu-item">
+                                            <a href="/discover">New search</a>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a href="/discover?query=Level%3AError">Erros</a>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a href="/discover?query=Level%3AInfo">Info</a>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a href="/discover?query=Level%3ADebug">Debug</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
-    </header>
-    <div class="container grid-xl">
-        @Section['Content']
+            <div class="column col-10">
+                @Section['Content']
+            </div>
+        </div>
     </div>
+    
     <script src="../Content/js/vendor/jquery-3.2.1.min.js"></script>
-    <script src="../Content/js/seeker.js"></script>
-    <![if IE]>
-    <script src="../Content/js/seeker.ie.js"></script>
-    <![endif]>
+    @Section['Scripts']
 </body>
 </html>

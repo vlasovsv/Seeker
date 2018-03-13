@@ -1,28 +1,8 @@
-﻿header {
-    padding: 10px;
-}
-
-.level {
-    vertical-align:central;
-}
-
-.expanded-row {
-    cursor: pointer;
-}
-
-.exception-block {
+﻿.exception-block {
     background-color: #d9534f;
     color: #fff;
     padding: 5px;
     margin-top: 5px;
-}
-
-.top-vertical {
-    vertical-align: top;
-}
-
-#log-table tr {
-    vertical-align:top;
 }
 
 .mr-1 {
@@ -33,6 +13,11 @@
     margin-right : 8px;
 }
 
-.no-background {
-    background: none !important;
+.columns {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.search-bar {
+    margin-top: 0.85rem;
 }
